@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.Tests", "Technetium.Tests\Technetium.Tests.fsproj", "{5D5DF9AE-96DB-4422-AF9C-0B681605C896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technetium.Data", "Technetium.Data\Technetium.Data.csproj", "{CA69D983-B35F-4FF9-A136-8B24DBBEF776}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{F6A95B01-413F-4470-8D79-0333E67FA86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A95B01-413F-4470-8D79-0333E67FA86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A95B01-413F-4470-8D79-0333E67FA86D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5DF9AE-96DB-4422-AF9C-0B681605C896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5DF9AE-96DB-4422-AF9C-0B681605C896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5DF9AE-96DB-4422-AF9C-0B681605C896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5DF9AE-96DB-4422-AF9C-0B681605C896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA69D983-B35F-4FF9-A136-8B24DBBEF776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA69D983-B35F-4FF9-A136-8B24DBBEF776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA69D983-B35F-4FF9-A136-8B24DBBEF776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA69D983-B35F-4FF9-A136-8B24DBBEF776}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8CBBE181-8EED-4BEE-A975-6B349DA57B6F} = {E367AF42-3353-4D06-B5D0-09B1A7F50801}
