@@ -16,7 +16,7 @@ internal static class DatabaseEx
         }
 
         var context = scope.ServiceProvider.GetRequiredService<TechnetiumDataContext>();
-        await context.Migrate();
+        await context.MigrateAsync();
 
         if (logger.IsEnabled(LogLevel.Information))
         {

@@ -6,5 +6,5 @@ public class TechnetiumDataContext : DbContext
 {
     public TechnetiumDataContext(DbContextOptions options) : base(options) {}
 
-    public Task Migrate() => Database.MigrateAsync();
+    public Task MigrateAsync() => Database.MigrateAsync();
 }
