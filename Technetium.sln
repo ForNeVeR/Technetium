@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.Core", "Technetium.Core\Technetium.Core.fsproj", "{C7D4D32A-7567-44E0-A94B-B7C38EDF9D2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technetium.Web", "Technetium.Web\Technetium.Web.csproj", "{F6A95B01-413F-4470-8D79-0333E67FA86D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF} = {03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{E367AF42-3353-4D06-B5D0-09B1A7F50801}"
 EndProject
@@ -31,6 +34,8 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.Console", "Technetium.Console\Technetium.Console.fsproj", "{4E72F9C5-E788-4DC0-B20D-8253F2A67285}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.Google", "Technetium.Google\Technetium.Google.fsproj", "{D9FD5DC0-0500-45D9-A680-8CABC50585BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technetium.Frontend", "Technetium.Frontend\Technetium.Frontend.proj", "{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +70,10 @@ Global
 		{D9FD5DC0-0500-45D9-A680-8CABC50585BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9FD5DC0-0500-45D9-A680-8CABC50585BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9FD5DC0-0500-45D9-A680-8CABC50585BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8CBBE181-8EED-4BEE-A975-6B349DA57B6F} = {E367AF42-3353-4D06-B5D0-09B1A7F50801}

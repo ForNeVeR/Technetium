@@ -3,7 +3,7 @@ Technetium Contributor Guide
 
 Development Prerequisites
 -------------------------
-To develop Technetium, you'll need [.NET 7 SDK][dotnet] (or a later version).
+To develop Technetium, you'll need [.NET 7 SDK][dotnet] (or a later version) and [Node.js][node-js] 18 (or a later version).
 
 Build the Project
 -----------------
@@ -21,3 +21,4 @@ $ dotnet test
 ```
 
 [dotnet]: https://dot.net/
+[node-js]: https://nodejs.org/

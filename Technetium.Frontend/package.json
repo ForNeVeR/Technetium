@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "build": "parcel build --public-url ./ --cache-dir obj/.parcel-cache --dist-dir bin"
+    },
+    "source": "index.html",
+    "type": "module",
+    "devDependencies": {
+        "parcel": "^2.9.3"
+    }
+}
