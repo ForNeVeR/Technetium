@@ -9,11 +9,18 @@ internal static class DatabaseEx
         using var scope = app.Services.CreateScope();
 
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogInformation("Migrating database.");
+
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation("Migrating database.");
+        }
 
         var context = scope.ServiceProvider.GetRequiredService<TechnetiumDataContext>();
         await context.Migrate();
 
-        logger.LogInformation("Database migration done.");
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation("Database migration done.");
+        }
     }
 }
