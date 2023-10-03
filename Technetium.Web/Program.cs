@@ -1,14 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using Technetium.Data;
-using Technetium.Web;
+using Technetium.Data.Extensions;
+using Technetium.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services
-    .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+var configuration = builder.Configuration;
 
-var app = builder.Build();
-await app.MigrateDatabase();
+builder.Services.AddDatabase(configuration);
 
-app.MapGet("/", () => "Hello World!");
+var application = builder.Build();
 
-app.Run();
+await application.UseMigrationRunnerAsync();
+
+application.MapGet("/", () => "Hello World!");
+
+application.Run();
