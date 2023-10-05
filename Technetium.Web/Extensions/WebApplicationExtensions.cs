@@ -1,16 +1,26 @@
-﻿using Technetium.Data.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Technetium.Data;
 
 namespace Technetium.Web.Extensions;
 
 public static class WebApplicationExtensions
 {
-    /// <summary>
-    /// Shortcut for <see cref="IMigrationRunner.MigrateAsync"/>
-    /// </summary>
-    /// <param name="application">Instance of <see cref="WebApplication"/></param>
-    public static Task UseMigrationRunnerAsync(this WebApplication application)
-        => application
-            .Services
-            .GetRequiredService<IMigrationRunner>()
-            .MigrateAsync();
+    public static async Task ApplyMigrationsAsync(this WebApplication application)
+    {
+        using var scope = application.Services.CreateScope();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation("Migrating database");
+        }
+
+        var databaseContext = scope.ServiceProvider.GetRequiredService<TechnetiumDataContext>();
+        await databaseContext.Database.MigrateAsync();
+
+        if (logger.IsEnabled(LogLevel.Information))
+        {
+            logger.LogInformation("Database migration done");
+        }
+    }
 }

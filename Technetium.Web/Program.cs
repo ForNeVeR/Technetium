@@ -8,7 +8,7 @@ builder.Services.AddDatabase(configuration);
 
 var application = builder.Build();
 
-await application.UseMigrationRunnerAsync();
+await application.ApplyMigrationsAsync();
 
 application.MapGet("/", () => "Hello World!");
 
