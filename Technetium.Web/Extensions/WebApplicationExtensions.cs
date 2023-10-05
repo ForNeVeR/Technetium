@@ -10,17 +10,11 @@ public static class WebApplicationExtensions
         using var scope = application.Services.CreateScope();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-        if (logger.IsEnabled(LogLevel.Information))
-        {
-            logger.LogInformation("Migrating database");
-        }
+        logger.LogInformation("Migrating database");
 
         var databaseContext = scope.ServiceProvider.GetRequiredService<TechnetiumDataContext>();
         await databaseContext.Database.MigrateAsync();
 
-        if (logger.IsEnabled(LogLevel.Information))
-        {
-            logger.LogInformation("Database migration done");
-        }
+        logger.LogInformation("Database migration done");
     }
 }
