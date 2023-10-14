@@ -5,24 +5,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="*.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="index.html" />
+        <None Include="*.json"/>
+        <Content Include="*.html"/>
+        <Content Include="*.less"/>
+        <Content Include="*.tsx"/>
     </ItemGroup>
 
     <Target Name="NpmInstall"
             BeforeTargets="NpmBuild"
             Inputs="package.json;package-lock.json"
             Outputs="$(IntermediateOutputPath)\npm-build.timestamp">
-        <Exec Command="npm install" />
-        <Touch Files="$(IntermediateOutputPath)\npm-build.timestamp" AlwaysCreate="true" />
+        <Exec Command="npm install"/>
+        <Touch Files="$(IntermediateOutputPath)\npm-build.timestamp" AlwaysCreate="true"/>
     </Target>
 
     <Target Name="NpmBuild" BeforeTargets="Build"
             Inputs="@(Content)"
             Outputs="bin\index.html">
-        <Exec Command="npm run build" />
+        <Exec Command="npm run build"/>
     </Target>
 </Project>
