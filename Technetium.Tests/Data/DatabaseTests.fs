@@ -1,4 +1,4 @@
-module DatabaseTests
+module Technetium.Tests.Data.DatabaseTests
 
 open System.Threading.Tasks
 open Technetium.Data

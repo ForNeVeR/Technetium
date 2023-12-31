@@ -8,7 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="DatabaseTests.fs" />
+        <Compile Include="Core\ScheduleTests.fs" />
+        <Compile Include="Data\DatabaseTests.fs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Technetium.Core\Technetium.Core.fsproj" />
       <ProjectReference Include="..\Technetium.Data\Technetium.Data.csproj" />
     </ItemGroup>
 
