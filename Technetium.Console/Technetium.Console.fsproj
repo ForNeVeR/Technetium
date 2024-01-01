@@ -6,13 +6,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="GoogleAuth.fs" />
-        <Compile Include="Program.fs"/>
+        <Compile Include="Configuration.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Google.Apis.Auth" Version="1.64.0" />
-      <PackageReference Include="Google.Apis.Tasks.v1" Version="1.64.0.3015" />
+      <ProjectReference Include="..\Technetium.Core\Technetium.Core.fsproj" />
+      <ProjectReference Include="..\Technetium.Google\Technetium.Google.fsproj" />
     </ItemGroup>
 
 </Project>

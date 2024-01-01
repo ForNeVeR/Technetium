@@ -1,4 +1,4 @@
-﻿module Technetium.Console.GoogleAuth
+﻿module Technetium.Google.GoogleAuth
 
 open System.IO
 open System.Text.Json

@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Console\ConfigurationTests.fs" />
         <Compile Include="Core\ScheduleTests.fs" />
         <Compile Include="Data\DatabaseTests.fs" />
+        <Compile Include="Google\GoogleTasksTests.fs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,8 +28,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Technetium.Console\Technetium.Console.fsproj" />
       <ProjectReference Include="..\Technetium.Core\Technetium.Core.fsproj" />
       <ProjectReference Include="..\Technetium.Data\Technetium.Data.csproj" />
+      <ProjectReference Include="..\Technetium.Google\Technetium.Google.fsproj" />
     </ItemGroup>
 
 </Project>
