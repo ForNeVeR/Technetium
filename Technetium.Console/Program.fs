@@ -40,7 +40,8 @@ type private UpdateMode =
 
 let private processTasks (taskService: TaskService) taskListId (config: Configuration) mode : Task<unit> = task {
     let! tasks = taskService.GetAllTasks(taskListId, config.PeriodStart, config.PeriodEnd)
-    let plan = Schedule.PreparePlan config.Schedule (WrapTasks tasks)
+    let sortedTasks = tasks |> Seq.sortBy(fun t -> struct(t.Due, t.Position)) // TODO: WTF, Due is readonly?
+    let plan = Schedule.PreparePlan (config.Schedule.AsSchedule()) (WrapTasks sortedTasks)
     let commands = UpdateCommands plan config.CruftBehavior
     match mode with
     | PrintPlan -> printPlan commands

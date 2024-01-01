@@ -21,6 +21,8 @@ let readClientSecretFile(path: string): Task<ClientSecrets> = task {
 }
 
 let getAuthenticationToken (user: string) (secret: ClientSecrets): Task<TokenResponse> = task {
+    // TODO: Cancellation (iced tasks?)
+    // TODO: Custom cache
     let! result = GoogleWebAuthorizationBroker.AuthorizeAsync(
         secret,
         [| TasksScope |],

@@ -2,19 +2,42 @@
 
 open System
 open System.IO
+open System.Runtime.CompilerServices
 open System.Text.Json
+open System.Text.Json.Serialization
 open System.Threading.Tasks
 
-open Technetium.Google.GoogleTasks
 open Technetium.Core.Schedule
+open Technetium.Google.GoogleTasks
 
+#nowarn "202"
+
+[<CLIMutable; RequiredMember>]
+type ScheduleConfiguration =
+    {
+        [<RequiredMember>] SpansToSchedule: DateTimeOffset[][]
+    }
+    member this.AsSchedule(): Schedule =
+        {
+            SpansToSchedule = this.SpansToSchedule |> Array.map(fun tuple ->
+                match tuple with
+                | [| span1; span2 |] -> struct(span1, span2)
+                | _ -> failwithf $"Invalid pair of timespans in SpansToSchedule: %A{tuple}"
+            )
+        }
+
+[<CLIMutable; RequiredMember>]
 type Configuration =
     {
-        PeriodStart: DateTimeOffset
-        PeriodEnd: DateTimeOffset
-        Schedule: Schedule
-        CruftBehavior: CruftBehavior
+        [<RequiredMember>] PeriodStart: DateTimeOffset
+        [<RequiredMember>] PeriodEnd: DateTimeOffset
+        [<RequiredMember>] Schedule: ScheduleConfiguration
+        [<RequiredMember>] CruftBehavior: CruftBehavior
     }
     static member Read(input: Stream): Task<Configuration> = task {
-        return! JsonSerializer.DeserializeAsync input
+        let opts = JsonSerializerOptions(
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
+        )
+        return! JsonSerializer.DeserializeAsync(input, opts)
     }

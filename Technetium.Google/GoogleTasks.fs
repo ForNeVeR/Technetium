@@ -54,32 +54,18 @@ type TaskService(oAuthToken: string) =
         taskListId: string,
         periodStart: DateTimeOffset,
         periodEnd: DateTimeOffset
-    ): Task<IReadOnlyList<Task>> = task {
-
-        let loadTasks(pageToken: string) =
-            let request = googleService.Tasks.List taskListId
-            request.OauthToken <- oAuthToken
-            request.DueMin <- periodStart.ToString("s", CultureInfo.InvariantCulture)
-            request.DueMax <- periodEnd.ToString("s", CultureInfo.InvariantCulture)
-            request.MaxResults <- 100
-            request.PageToken <- pageToken
-            request.ExecuteAsync()
-
-        let result = ResizeArray()
-        let mutable nextPageToken = null
-        let mutable proceed = true
-        while proceed do
-            let! tasks = loadTasks nextPageToken
-            result.AddRange tasks.Items
-
-            match tasks.NextPageToken with
-            | null ->
-                proceed <- false
-            | token ->
-                nextPageToken <- token
-
-        return result
-    }
+    ): Task<IReadOnlyList<Task>> =
+        executeChainedLoad (
+            fun pageToken ->
+                let request = googleService.Tasks.List taskListId
+                request.OauthToken <- oAuthToken
+                // TODO: Period filters don't work
+                // request.DueMin <- periodStart.ToString("s", CultureInfo.InvariantCulture)
+                // request.DueMax <- periodEnd.ToString("s", CultureInfo.InvariantCulture)
+                request.MaxResults <- EntitiesPerRequest
+                request.PageToken <- pageToken
+                request.ExecuteAsync()
+            ) (_.Items) (_.NextPageToken)
 
     member _.Apply(taskListId: string, commands: TaskCommand seq): System.Threading.Tasks.Task = task {
         for ScheduleToTime(task, time) in commands do
