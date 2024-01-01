@@ -14,7 +14,7 @@ type TaskCommand =
     | ScheduleToTime of Task * DateTimeOffset
 
 [<Literal>]
-let EntitiesPerRequest = 5 // TODO: Update to 100 later; 5 is only for multi-page load tests
+let EntitiesPerRequest = 5 // TODO[#11]: Update to 100 later; 5 is only for multi-page load tests
 
 type TaskService(oAuthToken: string) =
     let googleService = new TasksService()
@@ -59,7 +59,7 @@ type TaskService(oAuthToken: string) =
             fun pageToken ->
                 let request = googleService.Tasks.List taskListId
                 request.OauthToken <- oAuthToken
-                // TODO: Period filters don't work
+                // TODO[#11]: Period filters don't work
                 // request.DueMin <- periodStart.ToString("s", CultureInfo.InvariantCulture)
                 // request.DueMax <- periodEnd.ToString("s", CultureInfo.InvariantCulture)
                 request.MaxResults <- EntitiesPerRequest

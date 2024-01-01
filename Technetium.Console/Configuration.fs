@@ -10,7 +10,7 @@ open System.Threading.Tasks
 open Technetium.Core.Schedule
 open Technetium.Google.GoogleTasks
 
-#nowarn "202"
+#nowarn "202" // TODO[#13]: Better JSON management
 
 [<CLIMutable; RequiredMember>]
 type ScheduleConfiguration =
