@@ -20,7 +20,7 @@ To use Technetium.Console, you'll need a Google API credentials.
 Usage
 -----
 
-> **Warning**
+> [!WARNING]
 >
 > Note that currently Technetium.Console is just a demo application that authenticates in Google, but doesn't do anything else.
 
