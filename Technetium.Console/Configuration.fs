@@ -8,7 +8,6 @@ open System.Text.Json.Serialization
 open System.Threading.Tasks
 
 open Technetium.Core.Schedule
-open Technetium.Google.GoogleTasks
 
 #nowarn "202" // TODO[#13]: Better JSON management
 
@@ -32,7 +31,6 @@ type Configuration =
         [<RequiredMember>] PeriodStart: DateTimeOffset
         [<RequiredMember>] PeriodEnd: DateTimeOffset
         [<RequiredMember>] Schedule: ScheduleConfiguration
-        [<RequiredMember>] CruftBehavior: CruftBehavior
     }
     static member Read(input: Stream): Task<Configuration> = task {
         let opts = JsonSerializerOptions(

@@ -17,10 +17,17 @@ To use Technetium.Console, you'll need a Google API credentials.
 8. Download the resulting JSON file.
 9. Remember to add the users you want to use the application on the **OAuth consent screen** page, in the **Test users** list.
 
+Usage
+-----
+
+> **Warning**
+>
+> Note that currently Technetium.Console is just a demo application that authenticates in Google, but doesn't do anything else.
+
 Run Technetium.Console using this shell command.
 
 ```console
-$ dotnet run --project Technetium.Console -- <username> <path to the JSON credential file>
+$ dotnet run --project Technetium.Console -- <user-name> <client-secret-file> <configuration-file>
 ```
 
 Here `username` is Google user email, e.g. `example@gmail.com`. 
@@ -37,4 +44,3 @@ Documentation
 [docs.contributing]: CONTRIBUTING.md
 [docs.license]: LICENSE.md
 [status-zero]: https://img.shields.io/badge/status-zero-lightgrey.svg
-[google-cloud.credentials]: https://console.cloud.google.com/apis/credentials

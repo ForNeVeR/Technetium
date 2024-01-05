@@ -7,12 +7,10 @@
 
     <ItemGroup>
         <Compile Include="GoogleAuth.fs" />
-        <Compile Include="GoogleTasks.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Google.Apis.Auth" Version="1.64.0" />
-      <PackageReference Include="Google.Apis.Tasks.v1" Version="1.64.0.3015" />
     </ItemGroup>
 
     <ItemGroup>

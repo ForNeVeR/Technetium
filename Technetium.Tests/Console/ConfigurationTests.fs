@@ -20,10 +20,6 @@ let ``Configuration is read correctly``(): Task = task {
                             ["2023-12-31T00:00:00Z", "2024-12-31T02:00:00Z"],
                             ["2023-12-31T03:00:00Z", "2024-12-31T06:00:00Z"]
                         ]
-                    },
-                    "cruftBehavior": {
-                        "moveToOffset": "2024-01-01T00:00:00Z",
-                        "assumedDuration": "00:30:00"
                     }
                 }
                 """
@@ -40,10 +36,6 @@ let ``Configuration is read correctly``(): Task = task {
                 [|  DateTimeOffset(2023, 12, 31, 3, 0, 0, TimeSpan.Zero)
                     DateTimeOffset(2024, 12, 31, 6, 0, 0, TimeSpan.Zero) |]
             |]
-        }
-        CruftBehavior = {
-            MoveToOffset = DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero)
-            AssumedDuration = TimeSpan.FromHours 0.5
         }
     }, config)
 }
