@@ -5,6 +5,7 @@
 bin/
 node_modules/
 obj/
+wwwroot/
 
 *.user
 technetium.db*

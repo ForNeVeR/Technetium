@@ -27,6 +27,7 @@ jobs:
     name: main.${{ matrix.config.name }}
     runs-on: ${{ matrix.config.image }}
 
+    # noinspection SpellCheckingInspection
     env:
       DOTNET_NOLOGO: 1
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
@@ -46,6 +47,17 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: 'Technetium.Frontend/package-lock.json'
+
+      - name: Install the frontend dependencies
+        working-directory: Technetium.Frontend
+        run: npm ci
 
       - name: Build
         run: dotnet build

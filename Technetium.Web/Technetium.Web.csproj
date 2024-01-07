@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="..\Technetium.Frontend\bin\**\*" LinkBase="wwwroot"
-                 CopyToOutputDirectory="Always" CopyToPublishDirectory="Always"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Technetium.Data\Technetium.Data.csproj"/>
     </ItemGroup>
 

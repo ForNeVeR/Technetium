@@ -5,10 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="*.json"/>
-        <Content Include="*.html"/>
-        <Content Include="*.less"/>
+        <Content Include="*.json"/>
         <Content Include="*.tsx"/>
+        <Content Include="*.html"/>
     </ItemGroup>
 
     <Target Name="NpmInstall"
