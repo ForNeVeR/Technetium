@@ -11,9 +11,11 @@
         <Compile Include="Console\ConfigurationTests.fs" />
         <Compile Include="Core\ScheduleTests.fs" />
         <Compile Include="Data\DatabaseTests.fs" />
+        <Compile Include="Web\WebRouterTests.fs" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1"/>
         <PackageReference Include="xunit" Version="2.4.2"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -31,6 +33,7 @@
       <ProjectReference Include="..\Technetium.Core\Technetium.Core.fsproj" />
       <ProjectReference Include="..\Technetium.Data\Technetium.Data.csproj" />
       <ProjectReference Include="..\Technetium.Google\Technetium.Google.fsproj" />
+      <ProjectReference Include="..\Technetium.Web\Technetium.Web.csproj" />
     </ItemGroup>
 
 </Project>

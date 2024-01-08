@@ -2,14 +2,22 @@ using Microsoft.EntityFrameworkCore;
 using Technetium.Data;
 using Technetium.Web.Extensions;
 
-var builder = WebApplication.CreateBuilder();
-builder.Services
-    .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+namespace Technetium.Web;
 
-var application = builder.Build();
-await application.ApplyMigrationsAsync();
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services
+            .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
 
-application.MapGet("/", () => Results.LocalRedirect("/index.html"));
-application.UseStaticFiles();
+        var application = builder.Build();
+        await application.ApplyMigrationsAsync();
 
-application.Run();
+        application.MapGet("/", () => Results.LocalRedirect("/index.html"));
+        application.UseStaticFiles();
+
+        application.Run();
+    }
+}
