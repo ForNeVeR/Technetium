@@ -9,6 +9,7 @@
         <Content Include="*.json"/>
         <Content Include="*.less"/>
         <Content Include="*.tsx"/>
+        <Content Include="*.ts" />
     </ItemGroup>
 
     <Target Name="NpmInstall"

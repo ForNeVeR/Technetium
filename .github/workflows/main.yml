@@ -62,5 +62,9 @@ jobs:
       - name: Build
         run: dotnet build
 
-      - name: Test
+      - name: Test backend
         run: dotnet test
+
+      - name: Test frontend
+        working-directory: Technetium.Frontend
+        run: npm test
