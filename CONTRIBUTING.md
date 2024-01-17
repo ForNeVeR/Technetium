@@ -15,9 +15,19 @@ $ dotnet build
 
 Run Tests
 ---------
-Execute the following shell command:
+To run backend tests, execute the following shell command:
 ```console
 $ dotnet test
+```
+
+To run frontend tests once, execute the following shell command in the `Technetium.Frontend` directory:
+```console
+$ npm test
+```
+
+To run the frontend tests in watch mode, execute the following shell command in the `Technetium.Frontend` directory:
+```console
+$ npm run test-watch
 ```
 
 [dotnet]: https://dot.net/
