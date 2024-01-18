@@ -1,6 +1,7 @@
 {
     "scripts": {
         "build": "parcel build --public-url ./ --cache-dir obj/.parcel-cache --dist-dir ../Technetium.Web/wwwroot",
+        "watch": "parcel --public-url ./ --cache-dir obj/.parcel-cache --dist-dir ../Technetium.Web/wwwroot",
         "test": "vitest run",
         "test-watch": "vitest"
     },
@@ -8,11 +9,14 @@
     "type": "module",
     "devDependencies": {
         "@parcel/transformer-less": "^2.10.0",
+        "@parcel/validator-typescript": "^2.11.0",
         "@types/react": "^18.2.28",
         "@types/react-dom": "^18.2.13",
         "parcel": "^2.10.0",
+        "process": "^0.11.10",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "rxjs": "^7.8.1",
         "typescript": "^5.3.3",
         "vitest": "^1.2.1"
     }

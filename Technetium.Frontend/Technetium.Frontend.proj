@@ -8,8 +8,9 @@
         <Content Include="*.html"/>
         <Content Include="*.json"/>
         <Content Include="*.less"/>
-        <Content Include="*.tsx"/>
-        <Content Include="*.ts" />
+        <Content Include="**\*.tsx"/>
+        <Content Include="**\*.ts" />
+        <Content Include=".parcelrc" />
     </ItemGroup>
 
     <Target Name="NpmInstall"

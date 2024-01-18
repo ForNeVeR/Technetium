@@ -13,6 +13,12 @@ Execute the following shell command:
 $ dotnet build
 ```
 
+### Continuously Build the Frontend
+If required, run the following shell command to automatically rebuild the frontend code on changes:
+```console
+$ npm run watch
+```
+
 Run Tests
 ---------
 To run backend tests, execute the following shell command:
