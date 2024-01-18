@@ -8,7 +8,7 @@ export const CalendarView = () => (
     <div>
         <Calendar
             localizer={localizer}
-            events={[/* TODO: Pass the events here */]}
+            events={[/* TODO[#23]: Pass the events here */]}
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}
