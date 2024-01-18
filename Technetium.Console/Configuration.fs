@@ -2,19 +2,17 @@
 
 open System
 open System.IO
-open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Text.Json.Serialization
+open System.Text.Json.Serialization.Metadata
 open System.Threading.Tasks
 
 open Technetium.Core.Schedule
 
-#nowarn "202" // TODO[#13]: Better JSON management
-
-[<CLIMutable; RequiredMember>]
+[<CLIMutable>] // for deserialization
 type ScheduleConfiguration =
     {
-        [<RequiredMember>] SpansToSchedule: DateTimeOffset[][]
+        SpansToSchedule: DateTimeOffset[][]
     }
     member this.AsSchedule(): Schedule =
         {
@@ -25,17 +23,22 @@ type ScheduleConfiguration =
             )
         }
 
-[<CLIMutable; RequiredMember>]
+[<CLIMutable>] // for deserialization
 type Configuration =
     {
-        [<RequiredMember>] PeriodStart: DateTimeOffset
-        [<RequiredMember>] PeriodEnd: DateTimeOffset
-        [<RequiredMember>] Schedule: ScheduleConfiguration
+        PeriodStart: DateTimeOffset
+        PeriodEnd: DateTimeOffset
+        Schedule: ScheduleConfiguration
     }
-    static member Read(input: Stream): Task<Configuration> = task {
-        let opts = JsonSerializerOptions(
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
+
+    static member private JsonOptions = JsonSerializerOptions(
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+        TypeInfoResolver = DefaultJsonTypeInfoResolver().WithAddedModifier(fun typeInfo ->
+            typeInfo.Properties |> Seq.iter(fun p -> p.IsRequired <- true)
         )
-        return! JsonSerializer.DeserializeAsync(input, opts)
+    )
+
+    static member Read(input: Stream): Task<Configuration> = task {
+        return! JsonSerializer.DeserializeAsync(input, Configuration.JsonOptions)
     }
