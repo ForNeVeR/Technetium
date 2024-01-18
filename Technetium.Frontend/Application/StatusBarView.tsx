@@ -7,7 +7,7 @@ export const StatusBarView = ({status}: { status: Subject<string> }) => {
     useEffect(() => {
         const subscription = status.subscribe(setStatusString);
         return () => subscription.unsubscribe();
-    });
+    }, []);
 
     return <div>{statusString}</div>;
 };
