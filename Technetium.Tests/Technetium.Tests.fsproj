@@ -12,6 +12,7 @@
         <Compile Include="Core\ScheduleTests.fs" />
         <Compile Include="Data\DatabaseTests.fs" />
         <Compile Include="Web\WebRouterTests.fs" />
+        <Compile Include="Google\CredentialCacheTests.fs" />
     </ItemGroup>
 
     <ItemGroup>

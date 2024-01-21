@@ -2,6 +2,7 @@
 open System.Threading.Tasks
 
 open Technetium.Console
+open Technetium.Google
 open Technetium.Google.GoogleAuth
 
 type private AuthInformation = {
@@ -10,8 +11,9 @@ type private AuthInformation = {
 }
 
 let private authenticate (authInfo: AuthInformation) = task {
+    use cache = new InMemoryCredentialCache()
     let! clientSecret = readClientSecretFile authInfo.ClientSecretFilePath
-    return! getAuthenticationToken authInfo.UserName clientSecret
+    return! getAuthenticationToken cache authInfo.UserName clientSecret
 }
 
 let private asyncMain user clientSecretFilePath configFilePath: Task<int> = task {
