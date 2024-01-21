@@ -10,13 +10,15 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services
-            .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+            .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")))
+            .AddControllers();
 
         var application = builder.Build();
         await application.ApplyMigrationsAsync();
 
         application.MapGet("/", () => Results.LocalRedirect("/index.html"));
         application.UseStaticFiles();
+        application.MapControllers();
 
         await application.RunAsync();
     }

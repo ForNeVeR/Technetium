@@ -37,6 +37,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.Google", "Techne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technetium.Frontend", "Technetium.Frontend\Technetium.Frontend.proj", "{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.TestFramework", "Technetium.TestFramework\Technetium.TestFramework.fsproj", "{0B6CE22F-0996-4980-A15A-8790D729E4A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03D7DD8C-8FD3-4342-9638-0AC9C09F53EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B6CE22F-0996-4980-A15A-8790D729E4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B6CE22F-0996-4980-A15A-8790D729E4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B6CE22F-0996-4980-A15A-8790D729E4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B6CE22F-0996-4980-A15A-8790D729E4A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8CBBE181-8EED-4BEE-A975-6B349DA57B6F} = {E367AF42-3353-4D06-B5D0-09B1A7F50801}
