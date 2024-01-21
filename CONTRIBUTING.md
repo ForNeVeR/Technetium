@@ -36,5 +36,15 @@ To run the frontend tests in watch mode, execute the following shell command in 
 $ npm run test-watch
 ```
 
+Create a Database Migration
+---------------------------
+When modifying the database structure, you'll need to create a new migration. To do that, run the following shell commands:
+
+```console
+$ dotnet tool restore
+$ cd Technetium.Data
+$ dotnet ef migrations add <migration-name>
+```
+
 [dotnet]: https://dot.net/
 [node-js]: https://nodejs.org/

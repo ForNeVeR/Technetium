@@ -39,6 +39,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technetium.Frontend", "Tech
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Technetium.TestFramework", "Technetium.TestFramework\Technetium.TestFramework.fsproj", "{0B6CE22F-0996-4980-A15A-8790D729E4A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{A37D99FC-79B4-4968-A6DF-614B8B0CBC39}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
