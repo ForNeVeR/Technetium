@@ -1,7 +1,9 @@
 ﻿open System.IO
-open System.Threading.Tasks
+
+open IcedTasks
 
 open Technetium.Console
+open Technetium.Console.ConsoleUtil
 open Technetium.Google
 open Technetium.Google.GoogleAuth
 
@@ -10,13 +12,13 @@ type private AuthInformation = {
     ClientSecretFilePath: string
 }
 
-let private authenticate (authInfo: AuthInformation) = task {
+let private authenticate (authInfo: AuthInformation) = cancellableTask {
     use cache = new InMemoryCredentialCache()
     let! clientSecret = readClientSecretFile authInfo.ClientSecretFilePath
     return! getAuthenticationToken cache authInfo.UserName clientSecret
 }
 
-let private asyncMain user clientSecretFilePath configFilePath: Task<int> = task {
+let private asyncMain user clientSecretFilePath configFilePath = cancellableTask {
     let authInfo = { UserName = user; ClientSecretFilePath = clientSecretFilePath }
     use configFile = File.OpenRead configFilePath
     let! _config = Configuration.Read configFile
@@ -28,8 +30,8 @@ let private asyncMain user clientSecretFilePath configFilePath: Task<int> = task
 [<EntryPoint>]
 let main: string[] -> int = function
     | [| user; clientSecretFilePath; pathToConfigFile |] ->
-        (asyncMain user clientSecretFilePath pathToConfigFile).GetAwaiter().GetResult()
+        let task = WithConsoleCancellationToken(asyncMain user clientSecretFilePath pathToConfigFile)
+        task.GetAwaiter().GetResult()
     | args ->
         printfn "Usage: Technetium.Console <userName> <clientSecretFilePath> <configFilePath>"
         if Array.isEmpty args then 0 else 1
-

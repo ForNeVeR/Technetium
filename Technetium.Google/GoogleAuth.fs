@@ -2,19 +2,19 @@
 
 open System.IO
 open System.Text.Json
-open System.Threading
-open System.Threading.Tasks
 
 open Google.Apis.Auth.OAuth2
 open Google.Apis.Auth.OAuth2.Responses
 open Google.Apis.Util.Store
+open IcedTasks
 
 [<Literal>]
 let private TasksScope = "https://www.googleapis.com/auth/tasks"
 
-let readClientSecretFile(path: string): Task<ClientSecrets> = task {
+let readClientSecretFile(path: string): CancellableTask<ClientSecrets> = cancellableTask {
     use content = File.OpenRead path
-    let! json = JsonDocument.ParseAsync(content)
+    let! ct = CancellableTask.getCancellationToken()
+    let! json = JsonDocument.ParseAsync(content, cancellationToken = ct)
     let installed = json.RootElement.GetProperty("installed")
     return ClientSecrets(
         ClientId = installed.GetProperty("client_id").GetString(),
@@ -22,13 +22,13 @@ let readClientSecretFile(path: string): Task<ClientSecrets> = task {
     )
 }
 
-let getAuthenticationToken (store: IDataStore) (user: string) (secret: ClientSecrets): Task<TokenResponse> = task {
-    // TODO[#14]: Cancellation (iced tasks?)
+let getAuthenticationToken (store: IDataStore) (user: string) (secret: ClientSecrets): CancellableTask<TokenResponse> = cancellableTask {
+    let! ct = CancellableTask.getCancellationToken()
     let! result = GoogleWebAuthorizationBroker.AuthorizeAsync(
         secret,
         [| TasksScope |],
         user,
-        CancellationToken.None,
+        ct,
         dataStore = store
     )
     return result.Token

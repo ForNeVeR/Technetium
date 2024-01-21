@@ -18,6 +18,6 @@ public class Program
         application.MapGet("/", () => Results.LocalRedirect("/index.html"));
         application.UseStaticFiles();
 
-        application.Run();
+        await application.RunAsync();
     }
 }
