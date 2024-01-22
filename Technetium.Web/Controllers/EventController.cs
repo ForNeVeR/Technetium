@@ -14,7 +14,7 @@ public class EventController(TechnetiumDataContext db) : Controller
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var @event = EventDto.ToDb(dto);
+        var @event = EventDto.ToDb(dto) with { Id = 0 };
         db.Events.Add(@event);
         await db.SaveChangesAsync();
 
@@ -48,5 +48,6 @@ public record EventDto(int? Id, ZonedDateTime StartDateTime, TimeSpan Duration, 
         dto.StartDateTime.Zone.Id,
         dto.Duration,
         dto.Title,
-        dto.Description);
+        dto.Description
+    );
 }

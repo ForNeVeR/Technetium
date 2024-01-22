@@ -23,14 +23,14 @@ let ``Server returns an empty event list by default``(): Task = WithDefaultWebCl
 
 [<Fact>]
 let ``Server returns a newly-created empty``(): Task = WithDefaultWebClient(fun client -> task {
-    let event = EventDto(Nullable(), testDateTime, TimeSpan.FromMinutes 30.0, "Event Title", null)
+    let event = EventDto(1, testDateTime, TimeSpan.FromMinutes 30.0, "Event Title", null)
 
     let! emptyList = getEvents client
     Assert.Empty emptyList
 
     do! PutObject(client, "/api/event", event)
     let! result = getEvents client
-    Assert.Equal(event, Assert.Single result)
+    Assert.Equivalent(event, Assert.Single result)
 })
 
 [<Fact>]
@@ -56,9 +56,9 @@ let ``Server accepts a well-formed JSON``(): Task = WithDefaultWebClient(fun cli
     "Title": "Event Title",
     "Description": null
 }}"""
-    let event = EventDto(Nullable(), testDateTime, TimeSpan.FromMinutes 30.0, "Event Title", null)
+    let event = EventDto(1, testDateTime, TimeSpan.FromMinutes 30.0, "Event Title", null)
 
     do! PutJson(client, "/api/event", jsonData)
     let! result = getEvents client
-    Assert.Equal(event, Assert.Single result)
+    Assert.Equivalent(event, Assert.Single result)
 })

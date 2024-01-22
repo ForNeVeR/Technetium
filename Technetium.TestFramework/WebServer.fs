@@ -1,6 +1,5 @@
 ﻿module Technetium.TestFramework.WebServer
 
-open System.IO
 open System.Net.Http
 open System.Net.Http.Headers
 open System.Net.Mime
@@ -13,26 +12,20 @@ open Microsoft.Extensions.Configuration
 
 open Technetium.Web
 
-let private WithWebApplication action = task {
-    let tempDbFile = Path.GetTempFileName()
-    try
-        use app =
-            (new WebApplicationFactory<Program>())
-                .WithWebHostBuilder(
-                    fun (builder: IWebHostBuilder) ->
-                        builder.ConfigureAppConfiguration(fun context ->
-                            context.AddInMemoryCollection(Map.ofArray[|
-                                $"ConnectionStrings:{MainConfiguration.DatabaseConnectionStringName}",
-                                $"Data Source={tempDbFile}"
-                            |]) |> ignore
-                        ) |> ignore
-                )
-        do! action app
-    finally
-        // TODO: Cannot delete because it's being used by something
-        // File.Delete tempDbFile
-        ()
-}
+let private WithWebApplication action = TemporaryDatabase.WithDatabaseFilePath(fun path -> task {
+    use app =
+        (new WebApplicationFactory<Program>())
+            .WithWebHostBuilder(
+                fun (builder: IWebHostBuilder) ->
+                    builder.ConfigureAppConfiguration(fun context ->
+                        context.AddInMemoryCollection(Map.ofArray[|
+                            $"ConnectionStrings:{MainConfiguration.DatabaseConnectionStringName}",
+                            $"Data Source={path}"
+                        |]) |> ignore
+                    ) |> ignore
+            )
+    do! action app
+})
 
 let WithWebClient options action = WithWebApplication(fun app -> task {
     use client = app.CreateClient options
@@ -53,7 +46,7 @@ let JsonOptions = JsonSerializerOptions(JsonSerializerDefaults.Web).ConfigureTec
 let GetObject<'a>(client: HttpClient, url: string): Task<'a> = task {
     let! response = client.GetAsync(url)
     let! content = assertSuccessAndGetContent response
-    return JsonSerializer.Deserialize content
+    return JsonSerializer.Deserialize(content, JsonOptions)
 }
 
 let PutObject(client: HttpClient, url: string, object: 'a): Task = task {
