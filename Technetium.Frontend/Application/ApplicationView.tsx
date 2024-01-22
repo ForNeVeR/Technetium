@@ -5,7 +5,7 @@ import {CalendarView} from "../Calendar/CalendarView.js";
 
 export const ApplicationView = ({ viewModel }: { viewModel: ApplicationViewModel }) => {
     return [
-        <CalendarView />,
+        <CalendarView viewModel={viewModel.calendar} />,
         <StatusBarView status={viewModel.status} />
     ]
 };
