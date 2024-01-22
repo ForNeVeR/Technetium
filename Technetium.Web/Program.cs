@@ -10,10 +10,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services
-            .AddDbContext<TechnetiumDataContext>(opts => opts.UseSqlite(builder.Configuration.GetConnectionString("Database")))
-            .AddControllers();
+            .AddDbContext<TechnetiumDataContext>(opts => opts
+                .UseSqlite(builder.Configuration.GetConnectionString(MainConfiguration.DatabaseConnectionStringName)))
+            .AddControllers()
+                .AddJsonOptions(opts => opts.JsonSerializerOptions.ConfigureTechnetiumJson());
 
-        var application = builder.Build();
+        await using var application = builder.Build();
         await application.ApplyMigrationsAsync();
 
         application.MapGet("/", () => Results.LocalRedirect("/index.html"));

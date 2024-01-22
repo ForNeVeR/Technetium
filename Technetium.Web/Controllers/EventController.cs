@@ -9,7 +9,17 @@ namespace Technetium.Web.Controllers;
 public class EventController(TechnetiumDataContext db) : Controller
 {
     [HttpPut]
-    public void CreateEvent(EventDto @event) {}
+    public async Task<IActionResult> CreateEvent([FromBody] EventDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var @event = EventDto.ToDb(dto);
+        db.Events.Add(@event);
+        await db.SaveChangesAsync();
+
+        return Created();
+    }
 
     [HttpGet]
     public async Task<IEnumerable<EventDto>> GetEvents()
