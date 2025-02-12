@@ -12,20 +12,21 @@ open Microsoft.Extensions.Configuration
 
 open Technetium.Web
 
-let private WithWebApplication action = TemporaryDatabase.WithDatabaseFilePath(fun path -> task {
-    use app =
-        (new WebApplicationFactory<Program>())
-            .WithWebHostBuilder(
-                fun (builder: IWebHostBuilder) ->
-                    builder.ConfigureAppConfiguration(fun context ->
-                        context.AddInMemoryCollection(Map.ofArray[|
-                            $"ConnectionStrings:{MainConfiguration.DatabaseConnectionStringName}",
-                            $"Data Source={path}"
-                        |]) |> ignore
-                    ) |> ignore
-            )
-    do! action app
-})
+let WithWebApplication(action: WebApplicationFactory<_> -> Task): Task =
+    TemporaryDatabase.WithDatabaseFilePath(fun path -> task {
+        use app =
+            (new WebApplicationFactory<Program>())
+                .WithWebHostBuilder(
+                    fun (builder: IWebHostBuilder) ->
+                        builder.ConfigureAppConfiguration(fun context ->
+                            context.AddInMemoryCollection(Map.ofArray[|
+                                $"ConnectionStrings:{MainConfiguration.DatabaseConnectionStringName}",
+                                $"Data Source={path}"
+                            |]) |> ignore
+                        ) |> ignore
+                )
+        do! action app
+    })
 
 let WithWebClient options action = WithWebApplication(fun app -> task {
     use client = app.CreateClient options
@@ -59,9 +60,15 @@ let PutObject(client: HttpClient, url: string, object: 'a): Task = task {
     ()
 }
 
-let PutJson(client: HttpClient, url: string, json: string): Task = task {
+let private DoJson action (client: HttpClient) (url: string) json = task {
     use content = new StringContent(json, MediaTypeHeaderValue(MediaTypeNames.Application.Json))
-    let! response = client.PutAsync(url, content)
+    let! response = action client (url, content)
     let! _ = assertSuccessAndGetContent response
     ()
 }
+
+let PutJson(client: HttpClient, url: string, json: string): Task =
+    DoJson _.PutAsync client url json
+
+let PostJson(client: HttpClient, url: string, json: string): Task =
+    DoJson _.PostAsync client url json
