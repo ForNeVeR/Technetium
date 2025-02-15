@@ -11,10 +11,10 @@ namespace Technetium.Web.Controllers;
 public class TaskController(TechnetiumDataContext db) : Controller
 {
     [HttpPost("import/google")]
-    public Task Import([FromBody] GoogleTaskCollection input)
+    public Task Import([FromBody] IReadOnlyList<GoogleTaskList> input)
     {
         var index = 0L;
-        foreach (var task in input.Tasks)
+        foreach (var task in input.SelectMany(x => x.Tasks))
         {
             var taskRecord = Convert(task, index++);
             db.TaskRecords.Add(taskRecord);

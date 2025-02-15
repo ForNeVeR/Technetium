@@ -1,4 +1,4 @@
-export function NoAwait<T>(promise: Promise<T>): void {
+export function noAwait<T>(promise: Promise<T>): void {
     promise
         .catch(e => console.error(e));
 }

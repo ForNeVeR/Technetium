@@ -2,4 +2,4 @@
 
 namespace Technetium.Web.Requests;
 
-public record GoogleTaskCollection(IReadOnlyList<Task> Tasks);
+public record GoogleTaskList(IReadOnlyList<Task> Tasks);
