@@ -17,7 +17,8 @@ namespace Technetium.Data.Migrations
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ExternalId = table.Column<string>(type: "TEXT", nullable: true),
-                    ScheduledTime = table.Column<string>(type: "TEXT", nullable: true),
+                    ScheduledAtInstant = table.Column<string>(type: "TEXT", nullable: true),
+                    ScheduledAtTimeZoneId = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     Order = table.Column<long>(type: "INTEGER", nullable: false)

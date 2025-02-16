@@ -11,7 +11,7 @@ using Technetium.Data;
 namespace Technetium.Data.Migrations
 {
     [DbContext(typeof(TechnetiumDataContext))]
-    [Migration("20250216222808_AddTaskRecord")]
+    [Migration("20250216225532_AddTaskRecord")]
     partial class AddTaskRecord
     {
         /// <inheritdoc />
@@ -65,7 +65,10 @@ namespace Technetium.Data.Migrations
                     b.Property<long>("Order")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ScheduledTime")
+                    b.Property<string>("ScheduledAtInstant")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ScheduledAtTimeZoneId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")

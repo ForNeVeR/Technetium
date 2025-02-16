@@ -38,9 +38,9 @@ public class TaskController(TechnetiumDataContext db) : Controller
     private static TaskRecord Convert(GoogleTask input, long order) => new() {
         Id = 0L,
         ExternalId = MapId(input),
-        ScheduledTime = input.Due == null
+        ScheduledAt = input.Due == null
             ? null
-            : InstantPattern.ExtendedIso.Parse(input.Due).GetValueOrThrow().InUtc().LocalDateTime,
+            : OffsetDateTimePattern.Rfc3339.Parse(input.Due).GetValueOrThrow().InFixedZone(),
         Title = input.Title ?? "",
         Description = input.Notes ?? "",
         Order = order
@@ -50,7 +50,7 @@ public class TaskController(TechnetiumDataContext db) : Controller
     {
         var mapResult = Convert(source, 0L);
         // TODO: Decide what to do with orders of tasks on such update
-        destination.ScheduledTime = mapResult.ScheduledTime;
+        destination.ScheduledAt = mapResult.ScheduledAt;
         destination.Title = mapResult.Title;
         destination.Description = mapResult.Description;
         destination.Order = mapResult.Order;

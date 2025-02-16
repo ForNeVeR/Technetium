@@ -16,6 +16,9 @@ let private TestTasks tasks action =
         do! action app
     })
 
+let private utcDate year month day =
+    ZonedDateTime(Instant.FromUtc(year, month, day, 0, 0), DateTimeZone.Utc)
+
 [<Fact>]
 let ``Import should create tasks in the database``(): Task =
     let tasks = """
@@ -49,7 +52,7 @@ let ``Import should create tasks in the database``(): Task =
         {
             "Completed": null,
             "Deleted": null,
-            "Due": "2024-01-12T00:00:00.000Z",
+            "Due": "2024-01-12T00:00:00.000-08:00",
             "ETag": "\u0022LTYxNjE4NjQ0Mw\u0022",
             "Hidden": null,
             "Id": "N2ExSzNuS0NSalNZbUdhag",
@@ -74,7 +77,7 @@ let ``Import should create tasks in the database``(): Task =
             TaskRecord(
                 Id = 1L,
                 ExternalId = "google:WEx3RnNyQlJvTmdaa3FPeg",
-                ScheduledTime = LocalDateTime(2024, 1, 5, 0, 0),
+                ScheduledAt = utcDate 2024 1 5,
                 Title = "Language",
                 Description = "",
                 Order = 0L
@@ -82,7 +85,10 @@ let ``Import should create tasks in the database``(): Task =
             TaskRecord(
                 Id = 2L,
                 ExternalId = "google:N2ExSzNuS0NSalNZbUdhag",
-                ScheduledTime = LocalDateTime(2024, 1, 12, 0, 0),
+                ScheduledAt = ZonedDateTime(
+                    Instant.FromUtc(2024, 1, 12, 8, 0),
+                    DateTimeZone.ForOffset(Offset.FromHoursAndMinutes(-8, 0))
+                ),
                 Title = "Garbage",
                 Description = "",
                 Order = 1L
@@ -149,7 +155,7 @@ let ``Import should merge similar tasks``(): Task =
                 TaskRecord(
                     Id = 1L,
                     ExternalId = "google:WEx3RnNyQlJvTmdaa3FPeg",
-                    ScheduledTime = LocalDateTime(2024, 1, 5, 0, 0),
+                    ScheduledAt = utcDate 2024 1 5,
                     Title = "Language",
                     Description = "",
                     Order = 0L
@@ -166,7 +172,7 @@ let ``Import should merge similar tasks``(): Task =
             TaskRecord(
                 Id = 1L,
                 ExternalId = "google:WEx3RnNyQlJvTmdaa3FPeg",
-                ScheduledTime = LocalDateTime(2024, 1, 6, 0, 0),
+                ScheduledAt = utcDate 2024 1 6,
                 Title = "Language",
                 Description = "",
                 Order = 0L

@@ -62,7 +62,10 @@ namespace Technetium.Data.Migrations
                     b.Property<long>("Order")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ScheduledTime")
+                    b.Property<string>("ScheduledAtInstant")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ScheduledAtTimeZoneId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
