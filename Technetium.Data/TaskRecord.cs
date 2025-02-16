@@ -1,12 +1,15 @@
-﻿using NodaTime;
+﻿using Microsoft.EntityFrameworkCore;
+using NodaTime;
 
 namespace Technetium.Data;
 
-public record TaskRecord(
-    long Id,
-    string ExternalId,
-    LocalDateTime? ScheduledTime,
-    string Name,
-    string Description,
-    long Order
-);
+[Index(nameof(ExternalId), IsUnique = true)]
+public record TaskRecord
+{
+    public long Id { get; set; }
+    public string? ExternalId { get; set; }
+    public LocalDateTime? ScheduledTime { get; set; }
+    public string Title { get; set; } = "";
+    public string Description { get; set; } = "";
+    public long Order { get; set; }
+}

@@ -16,9 +16,9 @@ namespace Technetium.Data.Migrations
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ExternalId = table.Column<string>(type: "TEXT", nullable: false),
+                    ExternalId = table.Column<string>(type: "TEXT", nullable: true),
                     ScheduledTime = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     Order = table.Column<long>(type: "INTEGER", nullable: false)
                 },
@@ -26,6 +26,12 @@ namespace Technetium.Data.Migrations
                 {
                     table.PrimaryKey("PK_TaskRecords", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskRecords_ExternalId",
+                table: "TaskRecords",
+                column: "ExternalId",
+                unique: true);
         }
 
         /// <inheritdoc />

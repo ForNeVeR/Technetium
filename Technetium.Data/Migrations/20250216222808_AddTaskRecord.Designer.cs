@@ -11,7 +11,7 @@ using Technetium.Data;
 namespace Technetium.Data.Migrations
 {
     [DbContext(typeof(TechnetiumDataContext))]
-    [Migration("20250209194704_AddTaskRecord")]
+    [Migration("20250216222808_AddTaskRecord")]
     partial class AddTaskRecord
     {
         /// <inheritdoc />
@@ -60,11 +60,6 @@ namespace Technetium.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ExternalId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Order")
@@ -73,7 +68,14 @@ namespace Technetium.Data.Migrations
                     b.Property<string>("ScheduledTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique();
 
                     b.ToTable("TaskRecords");
                 });
