@@ -34,6 +34,13 @@ public class TaskController(TechnetiumDataContext db) : Controller
         await db.SaveChangesAsync();
     }
 
+    [HttpGet]
+    public async Task<IEnumerable<TaskDto>> GetTasks()
+    {
+        var records = await db.TaskRecords.ToListAsync();
+        return records.Select(TaskDto.FromDb);
+    }
+
     private static string MapId(GoogleTask task) => $"google:{task.Id ?? throw new BadHttpRequestException("No task id provided")}";
     private static TaskRecord Convert(GoogleTask input, long order) => new() {
         Id = 0L,

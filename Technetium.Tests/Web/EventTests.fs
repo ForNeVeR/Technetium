@@ -4,10 +4,10 @@ open System
 open System.Threading.Tasks
 
 open NodaTime
+open Technetium.Web.Requests
 open Xunit
 
 open Technetium.TestFramework.WebServer
-open Technetium.Web.Controllers
 
 let private getEvents client =
     GetObject<List<EventDto>>(client, "/api/event")
